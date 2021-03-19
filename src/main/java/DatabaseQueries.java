@@ -47,9 +47,6 @@ public class DatabaseQueries {
                 apartment.setPrice(resultSet.getInt(4));
                 apartments.add(apartment);
             }
-           /* for (Apartment apartment : apartments) {
-                System.out.println(apartment.toString());
-            }*/
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

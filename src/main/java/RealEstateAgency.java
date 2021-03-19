@@ -49,7 +49,7 @@ public class RealEstateAgency {
         }
     }
 
-    public static void submittingAnAd() {
+    public static void submittingAnAd () {
         Apartment apartment = new Apartment();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Внесите данные о квартире");
