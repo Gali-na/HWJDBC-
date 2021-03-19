@@ -24,7 +24,7 @@ public class DatabaseQueries {
         return nameDistrict;
     }
 
-    public static void apartmentSearchResult(int rooms, int Id_district, int sortNumber) {
+    public static List<Apartment> apartmentSearchResult(int rooms, int Id_district, int sortNumber) {
         String typeSort = "";
         if (sortNumber == 1) {
             typeSort = "";
@@ -32,13 +32,13 @@ public class DatabaseQueries {
         if (sortNumber == 2) {
             typeSort = "DESC";
         }
+        List<Apartment> apartments = new ArrayList<>();;
         try (Connection connection = DriverManager.getConnection(DB_CONECTION, DB_USER, DB_Password);) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT district_city.name, apartment.area, apartment.count_room, apartment.price, apartment.price FROM apartment, district_city WHERE apartment.id_district_city= district_city.Id AND apartment.count_room=? AND district_city.Id=? ORDER BY ? ");
             preparedStatement.setInt(1, rooms);
             preparedStatement.setInt(2, Id_district);
             preparedStatement.setString(3, typeSort);
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Apartment> apartments = new ArrayList<>();
             while (resultSet.next()) {
                 Apartment apartment = new Apartment();
                 apartment.setDistrictCity(resultSet.getString(1));
@@ -47,12 +47,13 @@ public class DatabaseQueries {
                 apartment.setPrice(resultSet.getInt(4));
                 apartments.add(apartment);
             }
-            for (Apartment apartment : apartments) {
+           /* for (Apartment apartment : apartments) {
                 System.out.println(apartment.toString());
-            }
+            }*/
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return apartments;
     }
 
 

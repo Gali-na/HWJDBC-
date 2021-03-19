@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class RealEstateAgency {
     private static  Map<Integer,String>listDistrictCity;
@@ -33,23 +30,26 @@ public class RealEstateAgency {
         System.out.println("Район города ");
         System.out.println();
         fillingDistrictCitylist();
-        Set<Integer> keys =listDistrictCity.keySet();
-        int i=0;
+        Set<Integer> keys = listDistrictCity.keySet();
+        int i = 0;
         for (Integer key : keys) {
-            i=i+1;
-            System.out.println(listDistrictCity.get(key) +" "+ i );
+            i = i + 1;
+            System.out.println(listDistrictCity.get(key) + " " + i);
         }
 
         int district = scanner.nextInt();
         System.out.println();
         System.out.println("Сформировать список по убиванию цены - 1 ");
         System.out.println("Сформировать список по возростанию цены - 2 ");
-        int price= scanner.nextInt();
+        int price = scanner.nextInt();
         System.out.println("Результат запроса");
-        DatabaseQueries.apartmentSearchResult(rooms, district, price );
+        List<Apartment> apartments = DatabaseQueries.apartmentSearchResult(rooms, district, price);
+        for (Apartment apartment : apartments) {
+            System.out.println(apartment.toString());
+        }
     }
 
-    public static void submittingAnAd () {
+    public static void submittingAnAd() {
         Apartment apartment = new Apartment();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Внесите данные о квартире");
